@@ -1,3 +1,3 @@
 Leetcode Solutions
 
-- Mostly will be coded with Python
+Done in either Python or Java
