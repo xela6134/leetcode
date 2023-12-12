@@ -1,0 +1,22 @@
+# Method chaining: calling multiple methods sequentially
+#                  each call performs an action on the same object and returns self
+
+class Car:
+    def turn_on(self):
+        print("You started the engine")
+        return self
+        
+    def turn_off(self):
+        print("You turned off the engine")
+        return self
+    
+    def drive(self):
+        print("You are driving")
+        return self
+        
+    def brake(self):
+        print("You are slowing down")
+        return self
+
+car = Car()
+car.turn_on().drive().drive().brake().turn_off()
