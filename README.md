@@ -1,3 +1,3 @@
-Leetcode Solutions
+# Leetcode Solutions
 
-Done in either Python or Java
+**Done in C++ or Python**
