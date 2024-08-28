@@ -22,7 +22,7 @@ int searchInsert(std::vector<int>& nums, int target) {
 
 auto main() -> int {
     std::vector<int> nums1 = {2, 4, 6, 8, 10, 12, 14, 16, 18};
-    
+
     std::cout << searchInsert(nums1, 11) << std::endl;
     std::cout << searchInsert(nums1, 10) << std::endl;
     std::cout << searchInsert(nums1, 9) << std::endl;
