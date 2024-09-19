@@ -24,11 +24,10 @@ auto groupAnagrams(std::vector<std::string>& strs) -> std::vector<std::vector<st
 }
 
 auto main() -> int {
-    std::vector<std::string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-    std::vector<std::vector<std::string>> groupedAnagrams = groupAnagrams(strs);
+    std::vector<std::string> words = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    std::vector<std::vector<std::string>> grouped = groupAnagrams(words);
 
-    // Print the result
-    for (const auto& group : groupedAnagrams) {
+    for (const auto& group : grouped) {
         for (const std::string& word : group) {
             std::cout << word << " ";
         }
