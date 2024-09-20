@@ -45,3 +45,7 @@ auto mergeKLists(std::vector<ListNode*>& lists) -> ListNode* {
 
     return dummy->next;
 }
+
+auto main() -> int {
+    
+}
