@@ -26,18 +26,11 @@ int minDistance(std::string word1, std::string word2) {
             
             // Different
             else {
-                if (i == j) {
-                    dp[i][j] = std::min({
-                        dp[i - 1][j - 1] + 1,   // Replace
-                        dp[i - 1][j] + 1,       // Insert
-                        dp[i][j - 1] + 1        // Delete
-                    });
-                } else {
-                    dp[i][j] = std::min({
-                        dp[i - 1][j] + 1,       // Insert
-                        dp[i][j - 1] + 1        // Delete
-                    });
-                }
+                dp[i][j] = std::min({
+                    dp[i - 1][j - 1] + 1,   // Replace
+                    dp[i - 1][j] + 1,       // Insert
+                    dp[i][j - 1] + 1        // Delete
+                });
             }
         }
     }
