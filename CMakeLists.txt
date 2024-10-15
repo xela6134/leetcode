@@ -47,3 +47,4 @@ add_executable(longest_consecutive_sequence 128/longest_consecutive_sequence.cpp
 add_executable(palindrome_partitioning 131/palindrome_partitioning.cpp)
 add_executable(single_number 136/single_number.cpp)
 add_executable(word_break 139/word_break.cpp)
+add_executable(lru_cache 146/lru_cache.cpp)
