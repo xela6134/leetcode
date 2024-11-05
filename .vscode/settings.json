@@ -69,6 +69,7 @@
         "span": "cpp",
         "stack": "cpp",
         "numeric": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "climits": "cpp"
     }
 }
