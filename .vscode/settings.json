@@ -70,6 +70,7 @@
         "stack": "cpp",
         "numeric": "cpp",
         "queue": "cpp",
-        "climits": "cpp"
+        "climits": "cpp",
+        "set": "cpp"
     }
 }
