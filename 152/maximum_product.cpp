@@ -14,13 +14,8 @@ int maxProduct(std::vector<int>& nums) {
         }
 
         curr_min = std::min(nums[i], curr_min * nums[i]);
-        std::cout << "For i = " << i << ", curr_min: " << curr_min;
-        
-        curr_max = std::max(nums[i], curr_max * nums[i]);
-        std::cout << ", curr_max: " << curr_max;
-        
+        curr_max = std::max(nums[i], curr_max * nums[i]);        
         whole_max = std::max(curr_max, whole_max);
-        std::cout << ", whole_max: " << whole_max << std::endl;
     }
 
     return whole_max;
