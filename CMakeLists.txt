@@ -5,6 +5,7 @@ project(LeetCodeSolutions)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Leetcode
 add_executable(twosum 1/twosum.cpp)
 add_executable(addtwonums 2/addtwonums.cpp)
 add_executable(longest_substring 3/longest_substring.cpp)
@@ -48,7 +49,7 @@ add_executable(longest_consecutive_sequence 128/longest_consecutive_sequence.cpp
 add_executable(palindrome_partitioning 131/palindrome_partitioning.cpp)
 add_executable(single_number 136/single_number.cpp)
 add_executable(word_break 139/word_break.cpp)
-add_executable(lru_cache 146/lru_cache.cpp)
+add_executable(lru_cache 146/LRU_cache.cpp)
 add_executable(maximum_product 152/maximum_product.cpp)
 add_executable(min_stack 155/min_stack.cpp)
 add_executable(majority_element 169/majority_element.cpp)

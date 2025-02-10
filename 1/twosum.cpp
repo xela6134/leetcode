@@ -3,14 +3,28 @@
 #include <unordered_map>
 #include <utility>
 
+// auto twoSum(std::vector<int>& nums, int target) -> std::vector<int> {
+//     auto num_map = std::unordered_map<int, int>{};
+
+//     for (int i = 0; i < nums.size(); ++i) {
+//         if (num_map.contains(target - nums[i])) {
+//             return {num_map[target - nums[i]], i};
+//         }
+//         num_map[nums[i]] = i;
+//     }
+
+//     return {};
+// }
+
 auto twoSum(std::vector<int>& nums, int target) -> std::vector<int> {
-    auto num_map = std::unordered_map<int, int>{};
+    std::unordered_map<int, int> num_map;
 
     for (int i = 0; i < nums.size(); ++i) {
         if (num_map.contains(target - nums[i])) {
             return {num_map[target - nums[i]], i};
+        } else {
+            num_map[nums[i]] = i;
         }
-        num_map[nums[i]] = i;
     }
 
     return {};
