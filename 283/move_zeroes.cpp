@@ -10,6 +10,16 @@ void print_vec(std::vector<int>& nums) {
 }
 
 void moveZeroes(std::vector<int>& nums) {
+    // Push non-zero elements to forward
+    // Keep track of 0s
+    //    0 1 0 3 2
+    // 
+    // 0. 0 1 0 3 2
+    // 1. 1 0 0 3 2
+    // 2. 1 0 0 3 2
+    // 3. 1 3 0 0 2
+    // 4. 1 3 2 0 0
+
     int zero_index = 0;
 
     for (int i = 0; i < nums.size(); ++i) {
