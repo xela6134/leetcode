@@ -1,41 +1,68 @@
 #include <vector>
 #include <iostream>
 
+// O(N) space complexity
 auto productExceptSelf(std::vector<int>& nums) -> std::vector<int> {
-    // -1, 1, 0, -3, 3
-    int n = nums.size();
+    // -1 |  1 |  0 | -3 |  3
     
-    std::vector<int> left(n);
-    std::vector<int> right(n);
-    
-    int left_prod = 1;
-    for (int i = 0; i < n; ++i) {
-        left_prod = left_prod * nums[i];
-        left[i] = left_prod;
-    }
+    // Pre
+    //  1 | -1 | -1 |  0 |  0
 
-    int right_prod = 1;
-    for (int i = n - 1; i >= 0; --i) {
-        right_prod = right_prod * nums[i];
-        right[i] = right_prod;
-    }
+    // Post
+    //  0 |  0 | -9 |  3 |  1
 
-    std::vector<int> result(n);
-    for (int i = 0; i < n; ++i) {
-        // Far left
+    std::vector<int> pre(nums.size(), 0);
+    int prod = 1;
+    for (int i = 0; i < nums.size(); ++i) {
         if (i == 0) {
-            result[i] = right[i + 1];
+            pre[i] = 1;
+        } else {
+            prod *= nums[i - 1];
+            pre[i] = prod;
         }
+    }
 
-        // Far right
-        else if (i == n - 1) {
-            result[i] = left[i - 1];
+    std::vector<int> post(nums.size(), 0);
+    prod = 1;
+    for (int i = nums.size() - 1; i >= 0; --i) {
+        if (i == nums.size() - 1) {
+            post[i] = 1;
+        } else {
+            prod *= nums[i + 1];
+            post[i] = prod;
         }
+    }
 
-        // Everything else
-        else {
-            result[i] = left[i - 1] * right[i + 1];
-        }
+    std::vector<int> result;
+    for (int i = 0; i < nums.size(); ++i) {
+        result.push_back(pre[i] * post[i]);
+    }
+
+    return result;
+}
+
+// O(1) space complexity (excluding result)
+auto productExceptSelf1(std::vector<int>& nums) -> std::vector<int> {
+    // -1 |  1 |  0 | -3 |  3
+    
+    // Pre
+    //  1 | -1 | -1 |  0 |  0
+
+    // Post
+    //  0 |  0 | -9 |  3 |  1
+    int n = nums.size();
+    std::vector<int> result(n, 1);
+
+    int prefix = 1;
+    for (int i = 0; i < n; ++i) {
+        result[i] = prefix;
+        prefix *= nums[i];
+    }
+
+    int suffix = 1;
+    for (int i = n - 1; i >= 0; --i) {
+        result[i] *= suffix;
+        suffix *= nums[i];
     }
 
     return result;
@@ -45,14 +72,14 @@ auto main() -> int {
     std::vector<int> nums = {1, 2, 3, 4};
     std::vector<int> result;
 
-    result = productExceptSelf(nums);
+    result = productExceptSelf1(nums);
     for (int& num : result) {
         std::cout << num << " ";
     }
     std::cout << std::endl;
 
     nums = {-1, 1, 0, -3, 3};
-    result = productExceptSelf(nums);
+    result = productExceptSelf1(nums);
     for (int& num : result) {
         std::cout << num << " ";
     }
