@@ -4,7 +4,7 @@
 // O(N) space complexity
 auto productExceptSelf(std::vector<int>& nums) -> std::vector<int> {
     // -1 |  1 |  0 | -3 |  3
-    
+
     // Pre
     //  1 | -1 | -1 |  0 |  0
 
