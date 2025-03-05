@@ -2,7 +2,7 @@
 #include <vector>
 #include <algorithm>
 
-int longestOnes(std::vector<int>& nums, int k) {
+int longestSubarray(std::vector<int>& nums) {
     // Sliding window, but window size can change all the time
     // If next element is 1, ++right
     // If next element is 0 and zeroes_used is <= k, ++right, ++zeroes_used
@@ -16,12 +16,12 @@ int longestOnes(std::vector<int>& nums, int k) {
     while (right < nums.size()) {
         if (nums[right] == 0) ++zeroes_used;
 
-        while (zeroes_used > k) {
+        while (zeroes_used > 1) {
             if (nums[left] == 0) --zeroes_used;
             ++left;
         }
 
-        max_size = std::max(max_size, right - left + 1);
+        max_size = std::max(max_size, right - left);
         ++right;
     }
 
@@ -29,9 +29,12 @@ int longestOnes(std::vector<int>& nums, int k) {
 }
 
 int main() {
-    std::vector<int> nums1 = {1,1,1,0,0,0,1,1,1,1,0};
-    std::cout << longestOnes(nums1, 2) << std::endl;
+    // std::vector<int> nums1 = {1,1,0,1};
+    // std::cout << longestSubarray(nums1) << std::endl;
 
-    std::vector<int> nums2 = {0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1};
-    std::cout << longestOnes(nums2, 3) << std::endl;
+    // std::vector<int> nums2 = {0,1,1,1,0,1,1,0,1};
+    // std::cout << longestSubarray(nums2) << std::endl;
+
+    std::vector<int> nums3 = {1,0,1,1,1,1,1,1,0,1,1,1,1,1};
+    std::cout << longestSubarray(nums3) << std::endl;
 }
