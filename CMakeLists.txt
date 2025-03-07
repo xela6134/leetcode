@@ -93,3 +93,4 @@ add_executable(unique_number_of_occurrences 1207/unique_number_of_occurrences.cp
 add_executable(two_strings_are_close 1657/two_strings_are_close.cpp)
 add_executable(design_twitter 355/design_twitter.cpp)
 add_executable(equal_row_and_column_pairs 2352/equal_row_and_column_pairs.cpp)
+add_executable(remove_stars_from_string 2390/remove_stars_from_string.cpp)

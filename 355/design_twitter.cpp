@@ -68,3 +68,7 @@ private:
     // [user]: { timestamp, tweetId }
     std::unordered_map<int, std::priority_queue<std::pair<int, int>>> tweets;
 };
+
+int main() {
+    return 0;
+}
