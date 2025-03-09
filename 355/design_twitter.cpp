@@ -23,7 +23,7 @@ public:
 
         if (tweets.find(userId) != tweets.end()) {
             auto temp = tweets[userId];
-            while (!temp.empty()) {
+            while (not temp.empty()) {
                 combined.push(temp.top());
                 temp.pop();
             }
@@ -32,7 +32,7 @@ public:
         for (auto followeeId : following[userId]) {
             if (tweets.find(followeeId) != tweets.end()) {
                 auto temp = tweets[followeeId];
-                while (!temp.empty()) {
+                while (not temp.empty()) {
                     combined.push(temp.top());
                     temp.pop();
                 }
