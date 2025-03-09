@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 
 project(LeetCodeSolutions)
 
@@ -96,3 +96,4 @@ add_executable(equal_row_and_column_pairs 2352/equal_row_and_column_pairs.cpp)
 add_executable(remove_stars_from_string 2390/remove_stars_from_string.cpp)
 add_executable(asteroid_collision 735/asteroid_collision.cpp)
 add_executable(palindromic_substrings 647/palindromic_substrings.cpp)
+add_executable(number_of_recent_calls 933/number_of_recent_calls.cpp)
