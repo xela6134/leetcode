@@ -4,30 +4,30 @@
 #include <algorithm>
 
 int longestConsecutive(std::vector<int>& nums) {
-    if (nums.size() == 0 or nums.size() == 1) return nums.size();
-    
-    std::unordered_set<int> num_set(nums.begin(), nums.end());
-    
-    int max_size = 1;
+    std::unordered_set<int> numbers;
 
-    // set is not ordered. We need to manually lookup using find() which is O(1) time complexity
-    for (int num : num_set) {
-        // If start of set
-        if (num_set.find(num - 1) == num_set.end()) {
-            int curr_size = 1;
-            int curr_num = num;
-            
-            // Finding takes O(1) complexity
-            while (num_set.find(curr_num + 1) != num_set.end()) {
-                ++curr_num;
-                ++curr_size;
+    for (int num : nums) {
+        numbers.insert(num);
+    }
+
+    int max = 0;
+
+    for (int num : numbers) {
+        if (numbers.find(num - 1) == numbers.end()) {
+            // We have a place to start, keep looping
+            int size = 1;
+            int curr = num;
+
+            while (numbers.find(curr + 1) != numbers.end()) {
+                ++size;
+                ++curr;
             }
 
-            max_size = std::max(curr_size, max_size);
+            max = std::max(size, max);
         }
     }
 
-    return max_size;
+    return max;
 }
 
 auto main() -> int {

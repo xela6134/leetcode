@@ -2,29 +2,34 @@
 #include <unordered_map>
 #include <queue>
 #include <iostream>
+#include <algorithm>
 
 auto topKFrequent(std::vector<int>& nums, int k) -> std::vector<int> {
     // 1. Make a map
-    std::unordered_map<int, int> count;
-    for (int& num : nums) {
-        ++count[num];
+    std::unordered_map<int, int> frequencies;
+
+    for (int num : nums) {
+        ++frequencies[num];
     }
 
-    // 2. Get 'most frequent elements'
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> min_heap;
-    for (const auto& [num, freq] : count) {
-        min_heap.emplace(freq, num);
-        if (min_heap.size() > k) {
-            min_heap.pop();
-        }
+    // 2. Calculate frequency
+    // Needs to be a min queue because we need to only get the largest elements to stay
+    // Stored in { freq, num } format
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> queue;
+
+    for (const auto& [num, freq] : frequencies) {
+        queue.push(std::make_pair(freq, num));
+        if (queue.size() > k) queue.pop();
     }
 
-    // 3. Change map to vector and return
+    // 3. Return result
     std::vector<int> result;
-    while (not min_heap.empty()) {
-        result.push_back(min_heap.top().second);
-        min_heap.pop();
+    while (not queue.empty()) {
+        result.push_back(queue.top().second);
+        queue.pop();
     }
+
+    std::sort(result.begin(), result.end());
 
     return result;
 }
