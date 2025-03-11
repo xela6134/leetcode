@@ -11,5 +11,18 @@ fi
 # Create folder and corresponding C++ file
 mkdir "$1" && touch "$1"/"$2".cpp
 
+starter="$(cat <<EOF
+#include <iostream>
+
+int main() {
+
+}
+
+EOF
+)"
+
+echo "$starter" > "$1"/"$2".cpp
+
 # Append add_executable line to CMakeLists.txt
 echo "add_executable($2 $1/$2.cpp)" >> CMakeLists.txt
+
