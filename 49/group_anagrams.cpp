@@ -5,19 +5,18 @@
 #include <iostream>
 
 auto groupAnagrams(std::vector<std::string>& strs) -> std::vector<std::vector<std::string>> {
-    auto anagram_map = std::unordered_map<std::string, std::vector<std::string>>{};
+    std::unordered_map<std::string, std::vector<std::string>> strings;
 
-    for (const std::string& str : strs) {
+    for (const auto& str : strs) {
         std::string sorted = str;
         std::sort(sorted.begin(), sorted.end());
 
-        anagram_map[sorted].push_back(str);
+        strings[sorted].push_back(str);
     }
 
-    auto result = std::vector<std::vector<std::string>>{};
-
-    for (const auto& pair : anagram_map) {
-        result.push_back(pair.second);
+    std::vector<std::vector<std::string>> result;
+    for (const auto& [key, val] : strings) {
+        result.push_back(val);
     }
 
     return result;
