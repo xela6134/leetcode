@@ -35,7 +35,7 @@ int countSubstrings(std::string s) {
     // 2. For loop for even size
     for (int i = 0; i < size - 1; ++i) {
         int j = 0;
-        while (i - j >= 0 && i + 1 + j < size && s[i - j] == s[i + 1 + j]) {
+        while (i - j >= 0 and i + 1 + j < size and s[i - j] == s[i + 1 + j]) {
             ++j;
             ++count;
         }
@@ -45,6 +45,6 @@ int countSubstrings(std::string s) {
 }
 
 int main() {
-    std::cout << countSubstrings("abc") << std::endl;
-    std::cout << countSubstrings("aaa") << std::endl;
+    std::cout << countSubstrings("abc") << std::endl;   // 3
+    std::cout << countSubstrings("aaa") << std::endl;   // 6
 }
