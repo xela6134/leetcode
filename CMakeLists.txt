@@ -109,3 +109,4 @@ add_executable(longest_nondecreasing_subarray 2771/longest_nondecreasing_subarra
 add_executable(binary_tree_max_path_sum 124/binary_tree_max_path_sum.cpp)
 add_executable(delete_and_earn 740/delete_and_earn.cpp)
 add_executable(minimum_knight_moves 1197/minimum_knight_moves.cpp)
+add_executable(minimum_equal_sum_replace_zeroes 2918/minimum_equal_sum_replace_zeroes.cpp)
