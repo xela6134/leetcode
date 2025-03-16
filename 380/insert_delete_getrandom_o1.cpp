@@ -58,3 +58,7 @@ private:
     std::unordered_map<int, int> numbers;
     std::vector<int> lookups;
 };
+
+int main() {
+    return 0;
+}
