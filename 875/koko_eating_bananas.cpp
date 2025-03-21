@@ -7,7 +7,7 @@
 int minEatingSpeed(std::vector<int>& piles, int h) {
     int min = 1, max = *max_element(piles.begin(), piles.end());
     int ans = max;
-    
+
     while (min <= max) {
         int mid = (min + max) / 2;
         int count = 0;
