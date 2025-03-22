@@ -21,7 +21,7 @@ auto subsets(std::vector<int>& nums) -> std::vector<std::vector<int>> {
 }
 
 auto print_result(std::vector<std::vector<int>>& result) {
-    for (std::vector<int> vec : result) {
+    for (auto vec : result) {
         for (int num : vec) {
             std::cout << num << " ";
         }

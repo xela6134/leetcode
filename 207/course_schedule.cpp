@@ -1,13 +1,15 @@
 #include <vector>
 #include <queue>
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 
 bool canFinish(int numCourses, std::vector<std::vector<int>>& prerequisites) {
     // 1. Make a graph
     std::vector<int> in_degree(numCourses, 0);              // Track in-degrees of each course
     std::vector<std::vector<int>> adj_list(numCourses);     // Adjacency 'list' representation
 
-    // If {0,1}: 1 -> 0
+    // If {1, 0}: 0 -> 1
     // adj_list[1] contains courses where 'Course 1' is a prereq of.
     for (auto& prereq : prerequisites) {
         adj_list[prereq[1]].push_back(prereq[0]);
