@@ -59,7 +59,6 @@ void print_result(std::vector<std::vector<int>> result) {
     }
 }
 
-
 int main() {
     std::vector<std::vector<int>> heights = {
         {1,2,2,3,5},
