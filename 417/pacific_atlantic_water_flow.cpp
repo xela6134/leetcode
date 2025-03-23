@@ -1,59 +1,52 @@
 #include <iostream>
 #include <vector>
+#include <utility>
 
-void dfs(std::vector<std::vector<int>>& heights, std::vector<std::vector<bool>>& flows, std::vector<std::vector<bool>>& visited, int horizontal_size, int vertical_size, int i, int j, bool& atlantic, bool& pacific) {
-    // If already exists, no need to check
-    if (flows[i][j]) {
-        atlantic = true;
-        pacific = true;
-        return;
-    }
+void dfs(std::vector<std::vector<int>>& heights, int i, int j, std::vector<std::vector<bool>>& reachable) {
+    int m = heights.size(), n = heights[0].size();
+    reachable[i][j] = true;
+    std::vector<std::pair<int,int>> directions = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+    
+    for (auto dir : directions) {
+        int x = i + dir.first, y = j + dir.second;
 
-    // For each of the directions, conduct a DFS. If out of bounds change either atlantic or pacific
-    std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+        // Check bounds and if the cell is already visited
+        if (x < 0 or x >= m or y < 0 or y >= n or reachable[x][y]) continue;
 
-    for (auto direction : directions) {
-        int x = i + direction.first;
-        int y = j + direction.second;
+        // Only move if neighbour's height is not less than current cell's height
+        if (heights[x][y] < heights[i][j]) continue;
 
-        // Check out of bounds first, change atlantic & pacific
-        if (x < 0 or y < 0) {
-            pacific = true;
-            if (pacific && atlantic) return;
-        } else if (x >= vertical_size or y >= horizontal_size) {
-            atlantic = true;
-            if (pacific && atlantic) return;
-        } else {
-            // Only conduct DFS if neighbour_height <= current_height
-            if (visited[x][y]) continue;
-            
-            visited[x][y] = true;
-            if (heights[x][y] <= heights[i][j]) {
-                dfs(heights, flows, visited, heights[0].size(), heights.size(), x, y, atlantic, pacific);
-            }
-        }
+        dfs(heights, x, y, reachable);
     }
 }
 
-auto pacificAtlantic(std::vector<std::vector<int>>& heights) -> std::vector<std::vector<int>> {
-    std::vector<std::vector<bool>> flows(heights.size(), std::vector<bool>(heights[0].size(), false));
+std::vector<std::vector<int>> pacificAtlantic(std::vector<std::vector<int>>& heights) {
+    if (heights.empty())
+        return {};
+    int m = heights.size(), n = heights[0].size();
 
-    std::vector<std::vector<int>> result;
-
-    for (int i = 0; i < heights.size(); ++i) {
-        for (int j = 0; j < heights[0].size(); ++j) {
-            // Conduct a DFS
-            bool atlantic = false, pacific = false;
-            std::vector<std::vector<bool>> visited(heights.size(), std::vector<bool>(heights[0].size(), false));
-            
-            dfs(heights, flows, visited, heights[0].size(), heights.size(), i, j, atlantic, pacific);
-            if (atlantic && pacific) {
-                flows[i][j] = true;
-                result.push_back({i, j});
-            }
-        }
+    std::vector<std::vector<bool>> pacific(m, std::vector<bool>(n, false));
+    std::vector<std::vector<bool>> atlantic(m, std::vector<bool>(n, false));
+    
+    // DFS from borders
+    for (int i = 0; i < m; ++i) {
+        dfs(heights, i, 0, pacific);        // Left column
+        dfs(heights, i, n-1, atlantic);     // Right column
     }
 
+    for (int j = 0; j < n; ++j) {
+        dfs(heights, 0, j, pacific);        // Top row
+        dfs(heights, m-1, j, atlantic);     // Bottom row
+    }
+    
+    // Collect cells that can reach both oceans
+    std::vector<std::vector<int>> result;
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (pacific[i][j] && atlantic[i][j])
+                result.push_back({i, j});
+        }
+    }
     return result;
 }
 
@@ -65,6 +58,7 @@ void print_result(std::vector<std::vector<int>> result) {
         std::cout << std::endl;
     }
 }
+
 
 int main() {
     std::vector<std::vector<int>> heights = {
