@@ -57,7 +57,7 @@ void backtrack(std::vector<std::string>& result, std::unordered_map<char, std::s
     char first_number = digits[0];
     std::string letter_combination = letters[first_number];
 
-    for (char& ch : letter_combination) {
+    for (const char& ch : letter_combination) {
         std::string new_curr = curr + ch;
         std::string new_digits = digits.substr(1, digits.size() - 1);
         backtrack(result, letters, new_digits, new_curr);
