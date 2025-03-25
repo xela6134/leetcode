@@ -124,3 +124,4 @@ add_executable(kth_largest_element_in_stream 703/kth_largest_element_in_stream.c
 add_executable(last_stone_weight 1046/last_stone_weight.cpp)
 add_executable(k_closest_points_to_origin 973/k_closest_points_to_origin.cpp)
 add_executable(max_area_of_island 695/max_area_of_island.cpp)
+add_executable(min_cost_climbing_stairs 746/min_cost_climbing_stairs.cpp)
