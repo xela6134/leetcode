@@ -5,6 +5,8 @@ project(LeetCodeSolutions)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+include_directories(data_structures)
+
 # Leetcode
 add_executable(twosum 1/twosum.cpp)
 add_executable(addtwonums 2/addtwonums.cpp)
