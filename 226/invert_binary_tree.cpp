@@ -14,8 +14,9 @@ TreeNode* invertTree(TreeNode* root) {
         queue.pop();
 
         std::swap(node->left, node->right);
-        queue.push(node->left);
-        queue.push(node->right);
+
+        if (node->left) queue.push(node->left);
+        if (node->right) queue.push(node->right);
     }
 
     return root;
