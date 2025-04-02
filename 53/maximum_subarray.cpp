@@ -1,18 +1,16 @@
 #include <vector>
-#include <limits>
+#include <climits>
 #include <iostream>
 
-auto maxSubArray(std::vector<int>& nums) -> int {
-    int max = -2147483648;
+int maxSubArray(std::vector<int>& nums) {
+    int max = INT_MIN;
     int sum = 0;
 
     for (int num : nums) {
         sum += num;
         max = std::max(max, sum);
 
-        if (sum < 0) {
-            sum = 0;
-        }
+        if (sum < 0) sum = 0;
     }
 
     return max;
