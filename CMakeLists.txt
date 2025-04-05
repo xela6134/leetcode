@@ -134,3 +134,4 @@ add_executable(divide_array_in_sets_k_consecutive_numbers 1296/divide_array_in_s
 add_executable(maximum_depth_binary_tree 104/maximum_depth_binary_tree.cpp)
 add_executable(diameter_of_binary_tree 543/diameter_of_binary_tree.cpp)
 add_executable(balanced_binary_tree 110/balanced_binary_tree.cpp)
+add_executable(same_tree 100/same_tree.cpp)
