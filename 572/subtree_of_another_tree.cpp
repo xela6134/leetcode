@@ -22,8 +22,13 @@
 // - Start comparing when root's val is equal to subroot
 // - Traverse through logic of subRoot
 bool compare(TreeNode* root, TreeNode* subRoot) {
+    // Same logic of returning true for nullptr
     if (not root and not subRoot) return true;
-    if (not root or not subRoot or root->val != subRoot->val) return false;
+
+    // Handling error cases where root and subRoot are different
+    if (not root and subRoot) return false;
+    if (root and not subRoot) return false;
+    if (root->val != subRoot->val) return false;
 
     return compare(root->left, subRoot->left) and compare(root->right, subRoot->right);
 }
@@ -32,6 +37,9 @@ bool isSubtree(TreeNode* root, TreeNode* subRoot) {
     if (not subRoot) return true;
     if (not root) return false;
 
+    // Shouldn't be something like
+    // return compare(root, subRoot)
+    // because if this returns false, we still want to compare for root->left and root->right
     if (compare(root, subRoot)) return true;
     
     return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);

@@ -9,6 +9,7 @@
 //  / \
 // 4   5
 
+// dfs function returns the maximum height
 int dfs(TreeNode* root, int& result) {
     if (not root) return 0;
 
