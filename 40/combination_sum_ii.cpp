@@ -15,7 +15,7 @@ void backtrack(std::vector<int>& candidates, std::vector<std::vector<int>>& resu
         if (candidates[i] + curr_sum > target) break;
         
         // Stops duplicate element being added 'on the same level'.
-        if (i > start && candidates[i] == candidates[i - 1]) continue;
+        if (i > start and candidates[i] == candidates[i - 1]) continue;
 
         curr_vector.push_back(candidates[i]);
         backtrack(candidates, result, curr_vector, i + 1, curr_sum + candidates[i], target);
