@@ -54,13 +54,6 @@ int longestCommonSubsequence(std::string text1, std::string text2) {
         }
     }
 
-    for (auto vec : dp) {
-        for (int num : vec) {
-            std::cout << num << " ";
-        }
-        std::cout << std::endl;
-    }
-
     return dp[text2.size() - 1][text1.size() - 1];
 }
 
