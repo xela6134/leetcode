@@ -29,4 +29,4 @@ for dir in */; do
     fi
 done
 
-echo "✅ Markdown file created: $output_file"
+echo "Markdown file created: $output_file"

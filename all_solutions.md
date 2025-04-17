@@ -121,6 +121,38 @@ int main() {
 }
 ```
 
+# Binary Tree Level Order Traversal
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <utility>
+#include "TreeNode.h"
+
+void dfs(std::vector<std::vector<int>>& result, TreeNode* node, int depth) {
+    if (not node) return;
+
+    if (result.size() == depth) {
+        result.push_back(std::vector<int>());
+    }
+
+    result[depth].push_back(node->val);
+    if (node->left) dfs(result, node->left, depth + 1);
+    if (node->right) dfs(result, node->right, depth + 1);
+}
+
+std::vector<std::vector<int>> levelOrder(TreeNode* root) {
+    std::vector<std::vector<int>> result;
+    dfs(result, root, 0);
+    return result;
+}
+
+int main() {
+
+}
+```
+
 # Maximum Depth Binary Tree
 
 ```cpp
@@ -960,6 +992,39 @@ int main() {
 }
 ```
 
+# Count Good Nodes In Binary Tree
+
+```cpp
+#include <iostream>
+#include "TreeNode.h"
+
+void dfs(TreeNode* node, int& result, int max) {
+    // +1 to result if node->val >= max
+    if (node->val >= max) {
+        ++result;
+        max = node->val;
+    }
+
+    if (node->left) dfs(node->left, result, max);
+    if (node->right) dfs(node->right, result, max);
+}
+
+int goodNodes(TreeNode* root) {
+    if (not root) return 0;
+
+    int result = 1;
+
+    if (root->left) dfs(root->left, result, root->val);
+    if (root->right) dfs(root->right, result, root->val);
+
+    return result;
+}
+
+int main() {
+
+}
+```
+
 # Substring Maximum Vowels
 
 ```cpp
@@ -1189,6 +1254,54 @@ int maxProduct(std::vector<int>& nums) {
 auto main() -> int {
     std::vector<int> nums = {-1,4,-4,5};
     std::cout << maxProduct(nums) << std::endl;
+}
+```
+
+# Find Minimum In Sorted Array
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <climits>
+#include <algorithm>
+
+int findMin(std::vector<int>& nums) {
+    int left = 0;
+    int right = nums.size() - 1;
+
+    int smallest = INT_MAX;
+
+
+    // Need a greedy algorithm which tries to find the smallest possible element
+    // 0 1 2 3 4 5 6
+    // -------------
+    // 1 2 3 4 5 6 7
+    // 2 3 4 5 6 7 1
+    // 3 4 5 6 7 1 2
+    // 4 5 6 7 1 2 3
+    // 5 6 7 1 2 3 4
+    // 6 7 1 2 3 4 5
+    // 7 1 2 3 4 5 6
+    while (left <= right) {
+        int mid = (left + right) / 2;
+        smallest = std::min(nums[mid], smallest);
+
+        // Look through right
+        if (nums[mid] > nums[right]) {
+            left = mid + 1;
+        } 
+
+        // Look through left
+        else {
+            right = mid - 1;
+        }
+    }
+
+    return smallest;
+}
+
+int main() {
+
 }
 ```
 
@@ -1677,6 +1790,39 @@ auto main() -> int {
 
     std::vector<int> nums2 = {2,7,9,3,1};
     std::cout << rob(nums2) << std::endl;
+}
+```
+
+# Binary Tree Right Side View
+
+```cpp
+#include <iostream>
+#include <vector>
+#include "TreeNode.h"
+
+void dfs(std::vector<int>& result, TreeNode* root, int depth) {
+    if (not root) return;
+
+    if (result.size() == depth) {
+        result.push_back(root->val);
+    }
+
+    if (root->right) {
+        dfs(result, root->right, depth + 1);
+    }
+
+    if (root->left) {
+        dfs(result, root->left, depth + 1);
+    }
+}
+
+std::vector<int> rightSideView(TreeNode* root) {
+    std::vector<int> result;
+    dfs(result, root, 0);
+}
+
+int main() {
+
 }
 ```
 
@@ -2518,6 +2664,63 @@ auto mergeKLists(std::vector<ListNode*>& lists) -> ListNode* {
 int main() {
     
 }```
+
+# Kth Smallest Element In Bst
+
+```cpp
+#include <iostream>
+#include <vector>
+#include "TreeNode.h"
+
+void dfs(TreeNode* node, std::vector<int>& arr) {
+    if (not node) return;
+
+    dfs(node->left, arr);
+    arr.push_back(node->val);
+    dfs(node->right, arr);
+}
+
+int kthSmallest(TreeNode* root, int k) {
+    std::vector<int> arr;
+    dfs(root, arr);
+    return arr[k - 1];
+}
+
+int main() {
+
+}
+```
+
+# Lowest Common Ancestor Binary Tree
+
+```cpp
+#include <iostream>
+#include "TreeNode.h"
+
+TreeNode* find(TreeNode* root, int small, int large) {
+    if (root == nullptr) return nullptr;
+
+    if (small <= root->val and root->val <= large) {
+        return root;
+    } else if (root->val < small) {
+        return find(root->right, small, large);
+    } else {
+        return find(root->left, small, large);
+    }
+}
+
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (p->val < q->val) {
+        return find(root, p->val, q->val);
+    } else {
+        return find(root, q->val, p->val);
+    }
+}
+
+int main() {
+
+}
+```
 
 # Equal Row And Column Pairs
 
@@ -3711,6 +3914,61 @@ int main() {
     return 0;
 }```
 
+# Valid Sudoku
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
+bool isValidSudoku(std::vector<std::vector<char>>& board) {
+    int SUDOKU_SIZE = 9;
+
+    // Step 1: Check rows
+    for (int i = 0; i < SUDOKU_SIZE; ++i) {
+        std::unordered_set<char> seen;
+        for (int j = 0; j < SUDOKU_SIZE; ++j) {
+            char c = board[i][j];
+            if (c == '.') continue;
+            if (seen.find(c) != seen.end()) return false;
+            seen.insert(c);
+        }
+    }
+
+    // Step 2: Check columns
+    for (int j = 0; j < SUDOKU_SIZE; ++j) {
+        std::unordered_set<char> seen;
+        for (int i = 0; i < SUDOKU_SIZE; ++i) {
+            char c = board[i][j];
+            if (c == '.') continue;
+            if (seen.find(c) != seen.end()) return false;
+            seen.insert(c);
+        }
+    }
+
+    // Step 3: Check 3x3 sub-boxes
+    for (int boxRow = 0; boxRow < 9; boxRow += 3) {
+        for (int boxCol = 0; boxCol < 9; boxCol += 3) {
+            std::unordered_set<char> seen;
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 3; ++j) {
+                    char c = board[boxRow + i][boxCol + j];
+                    if (c == '.') continue;
+                    if (seen.find(c) != seen.end()) return false;
+                    seen.insert(c);
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+int main() {
+
+}
+```
+
 # Insert Delete Getrandom O1
 
 ```cpp
@@ -3982,6 +4240,59 @@ auto main() -> int {
 //     }
 // }```
 
+# Combination Sum Ii
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+// 10,1,2,7,6,1,5
+// 1 1 2 5 6 7 10
+
+void backtrack(std::vector<int>& candidates, std::vector<std::vector<int>>& result, std::vector<int> curr_vector, int start, int curr_sum, int target) {
+    if (curr_sum == target) {
+        result.push_back(curr_vector);
+        return;
+    }
+
+    for (int i = start; i < candidates.size(); ++i) {
+        if (candidates[i] + curr_sum > target) break;
+        
+        // Stops duplicate element being added 'on the same level'.
+        if (i > start and candidates[i] == candidates[i - 1]) continue;
+
+        curr_vector.push_back(candidates[i]);
+        backtrack(candidates, result, curr_vector, i + 1, curr_sum + candidates[i], target);
+        curr_vector.pop_back();
+    }
+}
+
+auto combinationSum2(std::vector<int> candidates, int target) -> std::vector<std::vector<int>> {
+    std::sort(candidates.begin(), candidates.end());
+    std::vector<std::vector<int>> result;
+    backtrack(candidates, result, {}, 0, 0, target);
+    return result;
+}
+
+void print_result(std::vector<std::vector<int>> result) {
+    for (const auto& vec : result) {
+        for (int num : vec) {
+            std::cout << num << ", ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int main() {
+    auto result1 = combinationSum2({10,1,2,7,6,1,5}, 8);
+    auto result2 = combinationSum2({2,5,2,1,2}, 5);
+    print_result(result1);
+    std::cout << std::endl;
+    print_result(result2);
+}
+```
+
 # First Missing Positive
 
 ```cpp
@@ -4173,6 +4484,76 @@ int main() {
     };
 
     print_result(pacificAtlantic(heights));
+}
+```
+
+# Trapping Rain Water
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <climits>
+#include <algorithm>
+
+int trap(std::vector<int> height) {
+    if (height.empty()) {
+        return 0;
+    }
+
+    int l = 0;
+    int r = height.size() - 1;
+    int leftMax = height[l];
+    int rightMax = height[r];
+    int res = 0;
+
+    while (l < r) {
+        if (leftMax < rightMax) {
+            l++;
+            leftMax = std::max(leftMax, height[l]);
+            res += leftMax - height[l];
+        } else {
+            r--;
+            rightMax = std::max(rightMax, height[r]);
+            res += rightMax - height[r];
+        }
+    }
+    return res;
+}
+
+int trap1(std::vector<int> height) {
+    // input     0 1 0 2 1 0 1 3 2 1 2 1
+    // maxLeft   0 0 1 1 2 2 2 2 3 3 3 3
+    // maxRight  3 3 3 3 3 3 3 2 2 2 1 0
+    // min(L, R) 0 0 1 1 2 2 2 2 2 2 1 0
+    // output    0 0 1 0 1 2 1 0 0 1 0 0
+
+    int n = height.size();
+    if (n == 0) return 0;
+
+    std::vector<int> maxLeft(n), maxRight(n);
+    maxLeft[0] = height[0];
+    for (int i = 1; i < n; ++i) {
+        maxLeft[i] = std::max(maxLeft[i - 1], height[i]);
+    }
+
+    maxRight[n - 1] = height[n - 1];
+    for (int i = n - 2; i >= 0; --i) {
+        maxRight[i] = std::max(maxRight[i + 1], height[i]);
+    }
+
+    int result = 0;
+    for (int i = 0; i < n; ++i) {
+        int curr_min = std::min(maxLeft[i], maxRight[i]);
+        if (curr_min > height[i]) {
+            result += curr_min - height[i];
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    std::cout << trap({0,1,0,2,1,0,1,3,2,1,2,1}) << std::endl;
 }
 ```
 
@@ -5514,6 +5895,46 @@ int main() {
 }
 ```
 
+# Valid Parentheses String
+
+```cpp
+#include <iostream>
+#include <stack>
+#include <string>
+
+bool checkValidString(std::string s) {
+    std::stack<int> left, star;
+
+    for (int i = 0; i < s.size(); ++i) {
+        if (s[i] == '(') {
+            left.push(i);
+        } else if (s[i] == '*') {
+            star.push(i);
+        } else {
+            if (left.empty() and star.empty()) return false;
+            
+            if (not left.empty()) {
+                left.pop();
+            } else {
+                star.pop();
+            }
+        }
+    }
+    
+    while (not left.empty() and not star.empty()) {
+        if (left.top() > star.top()) return false;
+        left.pop();
+        star.pop();
+    }
+
+    return left.empty();
+}
+
+int main() {
+
+}
+```
+
 # Valid Palindrome Ii
 
 ```cpp
@@ -6536,6 +6957,38 @@ int main() {
 }
 ```
 
+# Subsets Ii
+
+```cpp
+#include <iostream>
+#include <vector>
+
+void backtrack(std::vector<std::vector<int>>& results, std::vector<int>& nums, std::vector<int> result, int start) {
+    results.push_back(result);
+
+    for (int i = start; i < nums.size(); ++i) {
+        if (i > start and nums[i] == nums[i-1]) continue;
+
+        if (result.size() < nums.size()) {
+            result.push_back(nums[i]);
+            backtrack(results, nums, result, i + 1);
+            result.pop_back();
+        }
+    }
+}
+
+std::vector<std::vector<int>> subsetsWithDup(std::vector<int>& nums) {
+    std::sort(nums.begin(), nums.end());
+    std::vector<std::vector<int>> results;
+    backtrack(results, nums, {}, 0);
+    return results;
+}
+
+int main() {
+
+}
+```
+
 # Number Of Recent Calls
 
 ```cpp
@@ -6610,6 +7063,82 @@ int main() {
 }
 ```
 
+# Validate Binary Search Tree
+
+```cpp
+#include <iostream>
+#include <vector>
+#include "TreeNode.h"
+
+void dfs(std::vector<int>& values, TreeNode* node) {
+    if (not node) return;
+
+    dfs(values, node->left);
+    values.push_back(node->val);
+    dfs(values, node->right);
+}
+
+bool isValidBST(TreeNode* root) {
+    std::vector<int> values;
+    dfs(values, root);
+
+    if (values.size() == 1) return true;
+
+    for (int i = 1; i < values.size(); ++i) {
+        if (values[i-1] >= values[i]) return false;
+    }
+
+    return true;
+}
+
+int main() {
+
+}
+```
+
+# Time Based Key Value Store
+
+```cpp
+#include <iostream>
+#include <string>
+#include <map>
+#include <unordered_map>
+
+class TimeMap {
+ public:
+    TimeMap() {
+        
+    }
+    
+    void set(std::string key, std::string value, int timestamp) {
+        stores[key][timestamp] = value;
+    }
+    
+    std::string get(std::string key, int timestamp) {
+        // Returns an iterator to the first element with key > timestamp
+        auto it = stores[key].upper_bound(timestamp);
+        
+        if (it == stores[key].begin()) {
+            return "";
+        } else {
+            return prev(it)->second;
+        }
+    }
+ private:
+    std::unordered_map<std::string, std::map<int, std::string>> stores;
+};
+
+int main() {
+    TimeMap* timeMap = new TimeMap();
+    timeMap->set("foo", "bar", 1);
+    std::cout << "answer: " << timeMap->get("foo", 1) << std::endl;
+    std::cout << "answer: " << timeMap->get("foo", 3) << std::endl;
+    timeMap->set("foo", "bar2", 4);
+    std::cout << "answer: " << timeMap->get("foo", 4) << std::endl;
+    std::cout << "answer: " << timeMap->get("foo", 5) << std::endl;
+}
+```
+
 # Rotten Oranges
 
 ```cpp
@@ -6617,6 +7146,7 @@ int main() {
 #include <queue>
 #include <utility>
 #include <iostream>
+#include <unordered_set>
 
 int orangesRotting(std::vector<std::vector<int>>& grid) {
     // 1. Start graph traversals from 2's
