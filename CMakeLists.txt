@@ -150,3 +150,4 @@ add_executable(count_good_nodes_in_binary_tree 1448/count_good_nodes_in_binary_t
 add_executable(validate_binary_search_tree 98/validate_binary_search_tree.cpp)
 add_executable(kth_smallest_element_in_bst 230/kth_smallest_element_in_bst.cpp)
 add_executable(decode_ways 91/decode_ways.cpp)
+add_executable(word_ladder 127/word_ladder.cpp)
