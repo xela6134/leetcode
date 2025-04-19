@@ -41,7 +41,6 @@ class LRUCache {
             return;
         }
 
-
         // Remove least used element
         if (cache.size() == size) {
             int least_recent = order.back();
@@ -51,8 +50,7 @@ class LRUCache {
         
         // Inserting process
         order.push_front(key);
-        auto order_begin = order.begin();
-        cache[key] = {value, order_begin};
+        cache[key] = {value, order.begin()};
     }
  private:
     int size;

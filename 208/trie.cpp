@@ -2,61 +2,6 @@
 #include <unordered_map>
 #include <iostream>
 
-// class TrieNode {
-// public:
-//     std::unordered_map<char, TrieNode*> children;
-//     bool isEndOfWord = false;
-// };
-
-// class Trie {
-// public:
-//     Trie() {
-//         root = new TrieNode();
-//     }
-    
-//     void insert(std::string word) {
-//         TrieNode* curr = root;
-//         for (char& ch : word) {
-//             // Character is inserted already
-//             if (curr->children.find(ch) != curr->children.end()) {
-//                 curr = curr->children[ch];
-//             }
-            
-//             // Character not inserted, need to make new TrieNode
-//             else {
-//                 TrieNode* next = new TrieNode();
-//                 curr->children[ch] = next;
-//                 curr = next;
-//             }
-//         }
-//         curr->isEndOfWord = true;
-//     }
-    
-//     bool search(std::string word) {
-//         TrieNode* curr = root;
-
-//         for (char& ch : word) {
-//             if (curr->children.find(ch) == curr->children.end()) return false;
-//             curr = curr->children[ch];
-//         }
-
-//         return curr->isEndOfWord;
-//     }
-    
-//     bool startsWith(std::string prefix) {
-//         TrieNode* curr = root;
-
-//         for (char& ch : prefix) {
-//             if (curr->children.find(ch) == curr->children.end()) return false;
-//             curr = curr->children[ch];
-//         }
-
-//         return true;
-//     }
-// private:
-//     TrieNode* root;
-// };
-
 class TrieNode {
 public:
     TrieNode* children[26];
@@ -74,7 +19,7 @@ public:
 
         for (char ch : word) {
             int index = ch - 'a';
-            if (!curr->children[index]) {
+            if (not curr->children[index]) {
                 curr->children[index] = new TrieNode();
             }
             curr = curr->children[index];
@@ -82,13 +27,13 @@ public:
 
         curr->isEndOfWord = true;
     }
-    
+
     bool search(std::string word) {
         TrieNode* curr = root;
 
         for (char ch : word) {
             int index = ch - 'a';
-            if (!curr->children[index]) return false;
+            if (not curr->children[index]) return false;
             curr = curr->children[index];
         }
 
@@ -100,7 +45,7 @@ public:
 
         for (char ch : prefix) {
             int index = ch - 'a';
-            if (!curr->children[index]) return false;
+            if (not curr->children[index]) return false;
             curr = curr->children[index];
         }
         
