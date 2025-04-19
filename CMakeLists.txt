@@ -156,3 +156,4 @@ add_executable(binary_tree_inorder_traversal 94/binary_tree_inorder_traversal.cp
 add_executable(symmetric_tree 101/symmetric_tree.cpp)
 add_executable(find_length_of_longest_common_prefix 3043/find_length_of_longest_common_prefix.cpp)
 add_executable(basic_calculator 227/basic_calculator.cpp)
+add_executable(linked_list_cycle 141/linked_list_cycle.cpp)
