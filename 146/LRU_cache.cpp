@@ -13,54 +13,55 @@
 
 class LRUCache {
  public:
-    LRUCache(int capacity) : capacity_(capacity) {}
-
-    int get(int key) {
-        if (map_.find(key) == map_.end()) return -1;
-
-        auto it = map_[key];
-        list_.splice(list_.begin(), list_, it);
-        return (*it).second; // it->second also works
+    LRUCache(int capacity) {
+        size = capacity;
     }
+    
+    int get(int key) {
+        // 1. Return -1 if not found
+        if (cache.find(key) == cache.end()) return -1;
 
+        // 2. Change the order (Move to start of list)
+        order.erase(cache[key].second);
+        order.push_front(key);
+        cache[key].second = order.begin();
+
+        // 3. Return the value
+        return cache[key].first;
+    }
+    
     void put(int key, int value) {
-        // Key exists
-        if (map_.find(key) != map_.end()) {
-            std::cout << "in if" << std::endl;
-            // 1. Get the iterator from list
-            auto it = map_[key];
+        auto it = cache.find(key);
 
-            // 2. Change the value
-            it->second = value;
-
-            // 3. Move to start of list            
-            list_.splice(list_.begin(), list_, it);
+        // Key exists already
+        if (it != cache.end()) {
+            order.erase(it->second.second);
+            order.push_front(key);
+            it->second = {value, order.begin()};
             return;
         }
 
-        // If capacity full, remove least used
-        if (list_.size() == capacity_) {
-            int least = list_.back().first;
-            list_.pop_back();
-            map_.erase(least);
+
+        // Remove least used element
+        if (cache.size() == size) {
+            int least_recent = order.back();
+            order.pop_back();
+            cache.erase(least_recent);
         }
-
-        // Now push to start of list
-        list_.emplace_front(std::make_pair(key, value));
-        map_[key] = list_.begin();
+        
+        // Inserting process
+        order.push_front(key);
+        auto order_begin = order.begin();
+        cache[key] = {value, order_begin};
     }
-
  private:
-    // Data structure explanation:
-    // - List of pairs {key, val}
-    // - Map which points to the iterators of the list {key, iterator}
-
-    int capacity_;
-    std::list<std::pair<int, int>> list_;
-    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> map_;
+    int size;
+    std::list<int> order;
+    std::unordered_map<int, std::pair<int, std::list<int>::iterator>> cache;
 };
 
 auto main() -> int {
+    std::cout << "Test 1" << std::endl;
     LRUCache lRUCache = LRUCache(2);
     lRUCache.put(1, 1);                             // cache is {1=1}
     lRUCache.put(2, 2);                             // cache is {1=1, 2=2}
@@ -71,4 +72,19 @@ auto main() -> int {
     std::cout << lRUCache.get(1) << std::endl;      // return -1 (not found)
     std::cout << lRUCache.get(3) << std::endl;      // return 3
     std::cout << lRUCache.get(4) << std::endl;      // return 4
+
+    // ["LRUCache","put","put","get","put","get","put","get","get","get"]
+    // [       [2],[1,0],[2,2],  [1],[3,3],  [2],[4,4],  [1],  [3],  [4]]
+
+    std::cout << "\nTest 2" << std::endl;
+    LRUCache lruCache1 = LRUCache(2);
+    lruCache1.put(1, 0);
+    lruCache1.put(2, 2);
+    std::cout << lruCache1.get(1) << std::endl;
+    lruCache1.put(3, 3);
+    std::cout << lruCache1.get(2) << std::endl;
+    lruCache1.put(4, 4);
+    std::cout << lruCache1.get(1) << std::endl;
+    std::cout << lruCache1.get(3) << std::endl;
+    std::cout << lruCache1.get(4) << std::endl;
 }
