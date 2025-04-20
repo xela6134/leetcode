@@ -1,6 +1,6 @@
 #!/bin/bash
 
-output_file="all_solutions.md"
+output_file="solutions.md"
 > "$output_file"  # Clear the file if it exists
 
 for dir in */; do
