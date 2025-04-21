@@ -158,3 +158,4 @@ add_executable(find_length_of_longest_common_prefix 3043/find_length_of_longest_
 add_executable(basic_calculator 227/basic_calculator.cpp)
 add_executable(linked_list_cycle 141/linked_list_cycle.cpp)
 add_executable(add_and_search_word_data_structure 211/add_and_search_word_data_structure.cpp)
+add_executable(restore_ip_addresses 93/restore_ip_addresses.cpp)
