@@ -1,58 +1,24 @@
 #include <vector>
 #include <numeric>
 #include <iostream>
+#include <unordered_map>
 
 // Works if everything is positive
-int subarraySum_initial(std::vector<int>& nums, int k) {
-    // k = 6
-    // 3, 2, 1, 5, 1, 4, 1
+int subarraySum(std::vector<int>& nums, int k) {
+    std::unordered_map<int, int> prefix_sums;
+    prefix_sums[0] = 1;  // Handles the case when a prefix sum itself equals k
+
     int count = 0;
-    int left = 0, right = 0;
-    int curr_sum = nums[0];
-
-    while (left != nums.size() and right != nums.size()) {
-        std::cout << "For left = " << left << " and right = " << right << ", curr_sum is " << curr_sum << std::endl;
-
-        // Check if current value = k
-        if (curr_sum == k) ++count;
-
-        // Case 0: right = nums.size() - 1
-        // ++left, curr_sum -= nums[left]
-        if (right == nums.size() - 1) {
-            curr_sum -= nums[left];
-            ++left;
+    int curr_sum = 0;
+    for (int num : nums) {
+        curr_sum += num;
+        if (prefix_sums.count(curr_sum - k)) {
+            count += prefix_sums[curr_sum - k];
         }
-
-        // Case 1: curr_sum < k
-        // ++right, curr_sum += nums[right]
-        else if (curr_sum < k) {
-            ++right;
-            curr_sum += nums[right];
-        }
-
-        // Case 2: curr_sum = k
-        // ++left, ++right, curr_sum += nums[right], curr_sum -= nums[left]
-        else if (curr_sum == k) {
-            ++right;
-            curr_sum += nums[right];
-            curr_sum -= nums[left];
-            ++left;
-        }
-
-        // Case 3: curr_sum > k
-        // ++left, curr_sum -= nums[left]
-        else {
-            curr_sum -= nums[left];
-            ++left;
-        }
+        prefix_sums[curr_sum]++;
     }
 
     return count;
-}
-
-// Answer
-int subarraySum(std::vector<int>& nums, int k) {
-    
 }
 
 auto main() -> int {
