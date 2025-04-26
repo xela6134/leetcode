@@ -3,7 +3,6 @@
 #include <iostream>
 #include <unordered_map>
 
-// Works if everything is positive
 int subarraySum(std::vector<int>& nums, int k) {
     std::unordered_map<int, int> prefix_sums;
     prefix_sums[0] = 1;  // Handles the case when a prefix sum itself equals k

@@ -161,6 +161,6 @@ add_executable(add_and_search_word_data_structure 211/add_and_search_word_data_s
 add_executable(restore_ip_addresses 93/restore_ip_addresses.cpp)
 add_executable(find_the_town_judge 997/find_the_town_judge.cpp)
 add_executable(construct_string_with_repeat_limit 2182/construct_string_with_repeat_limit.cpp)
-add_executable(contains_duplicate_ii.cpp 219/contains_duplicate_ii.cpp.cpp)
 add_executable(missing_number 268/missing_number.cpp)
 add_executable(maximum_units_on_a_truck 1710/maximum_units_on_a_truck.cpp)
+add_executable(search_2d_matrix_ii 240/search_2d_matrix_ii.cpp)
