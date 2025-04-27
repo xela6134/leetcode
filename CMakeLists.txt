@@ -164,3 +164,5 @@ add_executable(construct_string_with_repeat_limit 2182/construct_string_with_rep
 add_executable(missing_number 268/missing_number.cpp)
 add_executable(maximum_units_on_a_truck 1710/maximum_units_on_a_truck.cpp)
 add_executable(search_2d_matrix_ii 240/search_2d_matrix_ii.cpp)
+add_executable(count_subarrays_with_fixed_bounds 2444/count_subarrays_with_fixed_bounds.cpp)
+add_executable(find_the_most_common_response 3527/find_the_most_common_response.cpp)
