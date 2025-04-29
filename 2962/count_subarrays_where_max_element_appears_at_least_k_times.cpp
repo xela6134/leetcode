@@ -6,7 +6,7 @@ long long countSubarrays(std::vector<int>& nums, int k) {
     int n = nums.size();
     long long ans = 0;
     int left = 0;
-    int count = 0;
+    int count = 0;      // count of maxVals of subarrays
 
     for (int right = 0; right < n; ++right) {
         if (nums[right] == maxVal) {
