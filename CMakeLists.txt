@@ -172,3 +172,4 @@ add_executable(capacity_to_ship_packages_within_d_days 1011/capacity_to_ship_pac
 add_executable(boats_to_save_people 881/boats_to_save_people.cpp)
 add_executable(count_subarrays_where_max_element_appears_at_least_k_times 2962/count_subarrays_where_max_element_appears_at_least_k_times.cpp)
 add_executable(baekjoon 0/baekjoon.cpp)
+add_executable(baseball_game 682/baseball_game.cpp)
