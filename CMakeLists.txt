@@ -177,3 +177,4 @@ add_executable(cheapest_flights_within_k_stops 787/cheapest_flights_within_k_sto
 add_executable(insert_into_bst 701/insert_into_bst.cpp)
 add_executable(delete_node_in_bst 450/delete_node_in_bst.cpp)
 add_executable(delete_leaves_with_given_value 1325/delete_leaves_with_given_value.cpp)
+add_executable(fibonacci 509/fibonacci.cpp)
