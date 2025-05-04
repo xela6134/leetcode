@@ -5,7 +5,7 @@
 void deletion(TreeNode*& root, int target) {
     if (not root) return;
 
-    deletion(root->left,  target);
+    deletion(root->left, target);
     deletion(root->right, target);
 
     // remove if turned into a target leaf
