@@ -180,3 +180,4 @@ add_executable(delete_leaves_with_given_value 1325/delete_leaves_with_given_valu
 add_executable(fibonacci 509/fibonacci.cpp)
 add_executable(minimum_depth_binary_tree 111/minimum_depth_binary_tree.cpp)
 add_executable(flatten_binary_tree_to_linked_list 114/flatten_binary_tree_to_linked_list.cpp)
+add_executable(binary_tree_paths 257/binary_tree_paths.cpp)
