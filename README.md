@@ -1,9 +1,9 @@
 # Leetcode Solutions
 
 ### Description
-- Done in C++ (or maybe Python?)
-- Currently completing Top 100 Liked Questions
-- You need to install CMake to run these solutions. Install `cmake` according to your current environment.
+- Almost entirely done in C++
+- Doing whatever questions I feel like from different sources
+- (If you **REALLY** want to run this) you need to install CMake to run these solutions. Install `cmake` according to your current environment.
 
 ### Instructions
 1. Run `cmake -B build` for initial setup. This will create a `build` directory.
