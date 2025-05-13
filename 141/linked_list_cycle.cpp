@@ -1,16 +1,21 @@
 #include <iostream>
-#include <unordered_set>
 #include "ListNode.h"
 
 bool hasCycle(ListNode* head) {
-    std::unordered_set<ListNode*> visited;
+    ListNode* slow = head;
+    ListNode* fast = head;
 
-    while (head != nullptr) {
-        if (visited.count(head)) {
-            return true;
+    while (fast != nullptr) {
+        fast = fast->next;
+        
+        if (fast != nullptr) {
+            fast = fast->next;
+            slow = slow->next;
+
+            if (fast == slow) {
+                return true;
+            }
         }
-        visited.insert(head);
-        head = head->next;
     }
 
     return false;
