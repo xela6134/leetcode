@@ -183,3 +183,4 @@ add_executable(flatten_binary_tree_to_linked_list 114/flatten_binary_tree_to_lin
 add_executable(binary_tree_paths 257/binary_tree_paths.cpp)
 add_executable(add_strings 415/add_strings.cpp)
 add_executable(maximum_value_at_a_given_index_bounded_array 1802/maximum_value_at_a_given_index_bounded_array.cpp)
+add_executable(middle_of_linked_list 876/middle_of_linked_list.cpp)
