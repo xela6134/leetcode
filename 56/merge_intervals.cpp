@@ -2,37 +2,30 @@
 #include <iostream>
 #include <algorithm>
 
-auto merge(std::vector<std::vector<int>>& intervals) -> std::vector<std::vector<int>> {
-    std::vector<std::vector<int>> result;
-
-    if (intervals.empty()) return result;
-
+std::vector<std::vector<int>> merge(std::vector<std::vector<int>>& intervals) {
     std::sort(intervals.begin(), intervals.end());
 
-    bool first = true;
-    std::vector<int> curr = intervals[0];
+    std::vector<std::vector<int>> result;
 
-    for (std::vector<int> interval : intervals) {
-        // Skipping first interval
-        if (first) {
-            first = false;
-            continue;
-        }
+    result.push_back(intervals[0]);
 
-        // Overlapping case
-        if (curr[0] < interval[0] and curr[1] > interval[1]) continue;
+    for (int i = 1; i < intervals.size(); ++i) {
+        std::vector<int> last_interval = result[result.size() - 1];
 
-        if (curr[1] >= interval[0]) {
-            // If curr and interval are mergeable
-            curr[1] = interval[1];
+        // 2 cases:
+        // 1. Two intervals overlap
+        // 2. No overlap
+
+        if (intervals[i][0] <= result.back()[1]) {
+            // Merge overlapping intervals
+            result.back()[1] = std::max(result.back()[1], intervals[i][1]);
         } else {
-            // If curr and interval are not mergeable
-            result.push_back(curr);
-            curr = interval;
+            // No overlap, add as new interval
+            result.push_back(intervals[i]);
         }
+
     }
 
-    result.push_back(curr);
     return result;
 }
 

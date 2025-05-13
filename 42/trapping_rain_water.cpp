@@ -38,7 +38,8 @@ int trap1(std::vector<int> height) {
     int n = height.size();
     if (n == 0) return 0;
 
-    std::vector<int> maxLeft(n), maxRight(n);
+    std::vector<int> maxLeft(n);
+    std::vector<int> maxRight(n);
     maxLeft[0] = height[0];
     for (int i = 1; i < n; ++i) {
         maxLeft[i] = std::max(maxLeft[i - 1], height[i]);
