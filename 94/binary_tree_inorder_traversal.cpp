@@ -1,19 +1,28 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 #include "TreeNode.h"
 
-void dfs(std::vector<int>& nodes, TreeNode* node) {
-    if (not node) return;
-
-    dfs(nodes, node->left);
-    nodes.push_back(node->val);
-    dfs(nodes, node->right);
-}
-
 std::vector<int> inorderTraversal(TreeNode* root) {
-    std::vector<int> nodes;
-    dfs(nodes, root);
-    return nodes;
+    std::stack<TreeNode*> nodes;
+    TreeNode* curr = root;
+    std::vector<int> result;
+
+    while (not nodes.empty() or curr) {
+        while (curr) {
+            nodes.push(curr);
+            curr = curr->left;
+        }
+
+        curr = nodes.top();
+        nodes.pop();
+
+        result.push_back(curr->val);
+        // curr = nodes.top();
+        curr = curr->right;
+    }
+
+    return result;
 }
 
 int main() {
