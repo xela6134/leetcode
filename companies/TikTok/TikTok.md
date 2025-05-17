@@ -160,16 +160,83 @@ public:
 ### reverse a singly linked list without recursion
 
 ```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* prev = nullptr;
+        ListNode* curr = head;
+        ListNode* next;
 
+        while (curr) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+};
 ```
 
 ### traverse a given binary tree in preorder without recursion
 
 ```cpp
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        std::vector<int> result;
 
+        if (not root) return result;
+
+        std::stack<TreeNode*> nodes;
+        nodes.push(root);
+
+        while (not nodes.empty()) {
+            TreeNode* curr = nodes.top();
+            nodes.pop();
+            result.push_back(curr->val);
+
+            // Push right first so that left is processed first
+            if (curr->right) nodes.push(curr->right);
+            if (curr->left) nodes.push(curr->left);
+        }
+
+        return result;
+    }
+};
 ```
 
 ### traverse a given binary tree in inorder without recursion
+
+```cpp
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        std::stack<TreeNode*> nodes;
+        TreeNode* curr = root;
+        std::vector<int> result;
+
+        while (not nodes.empty() or curr) {
+            while (curr) {
+                nodes.push(curr);
+                curr = curr->left;
+            }
+
+            curr = nodes.top();
+            nodes.pop();
+
+            result.push_back(curr->val);
+            // curr = nodes.top();
+            curr = curr->right;
+        }
+
+        return result;
+    }
+};
+```
+
+### traverse a given binary tree in postorder without recursion
 
 ```cpp
 
