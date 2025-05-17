@@ -239,8 +239,169 @@ public:
 ### traverse a given binary tree in postorder without recursion
 
 ```cpp
+std::vector<int> postorderTraversal(TreeNode* root) {
+    std::vector<int> result;
+    if (!root) return result;
 
+    std::stack<TreeNode*> stk;
+    stk.push(root);
+
+    // Postorder is Left -> Right -> Root
+    // If we do Root -> Right -> Left, then reverse
+    // We can get postorder traversal
+
+    while (!stk.empty()) {
+        TreeNode* node = stk.top();
+        stk.pop();
+
+        result.push_back(node->val); // Process root
+
+        // Push left first, then right (so right is processed first)
+        if (node->left) stk.push(node->left);
+        if (node->right) stk.push(node->right);
+    }
+
+    // Reverse the result to get Left -> Right -> Root
+    std::reverse(result.begin(), result.end());
+    return result;
+}
 ```
 
 # Non-leetcode stuff
 
+### How is a bubble sort algorithm implemented?
+
+- Repeatedly swap adjacent elements if they are in the wrong order. 
+- Largest elements "bubble" to the end.
+
+```cpp
+void bubbleSort(std::vector<int>& arr) {
+    int n = arr.size();
+    bool swapped;
+
+    for (int i = 0; i < n - 1; ++i) {
+        swapped = false;
+
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                std::swap(arr[j], arr[j + 1]);
+                swapped = true;
+            }
+        }
+
+        if (!swapped) break; // No swaps ⇒ already sorted
+    }
+}
+```
+
+### How is a merge sort algorithm implemented?
+
+- Divide array into halves
+- Recursively sort each half
+- Merge two sorted halves into one
+
+```cpp
+void merge(std::vector<int>& arr, int left, int mid, int right) {
+    std::vector<int> temp;
+    int i = left, j = mid + 1;
+
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j])
+            temp.push_back(arr[i++]);
+        else
+            temp.push_back(arr[j++]);
+    }
+
+    while (i <= mid) temp.push_back(arr[i++]);
+    while (j <= right) temp.push_back(arr[j++]);
+
+    for (int k = 0; k < temp.size(); ++k) arr[left + k] = temp[k];
+}
+
+void mergeSort(std::vector<int>& arr, int left, int right) {
+    if (left >= right) return;
+
+    int mid = (left + right) / 2;
+
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+}
+```
+
+### How is a radix sort algorithm implemented?
+
+```cpp
+int getMax(const std::vector<int>& arr) {
+    int mx = arr[0];
+    for (int num : arr) mx = std::max(mx, num);
+    return mx;
+}
+
+void countingSortByDigit(std::vector<int>& arr, int exp) {
+    int n = arr.size();
+    std::vector<int> output(n);
+    int count[10] = {0};
+
+    // Count digits
+    for (int num : arr)
+        count[(num / exp) % 10]++;
+
+    // Make count[i] the position of this digit
+    for (int i = 1; i < 10; ++i)
+        count[i] += count[i - 1];
+
+    // Build output array (stable sort)
+    for (int i = n - 1; i >= 0; --i) {
+        int digit = (arr[i] / exp) % 10;
+        output[--count[digit]] = arr[i];
+    }
+
+    // Copy back
+    for (int i = 0; i < n; ++i)
+        arr[i] = output[i];
+}
+
+void radixSort(std::vector<int>& arr) {
+    int maxNum = getMax(arr);
+
+    for (int exp = 1; maxNum / exp > 0; exp *= 10)
+        countingSortByDigit(arr, exp);
+}
+```
+
+### How do you swap two numbers without using the third variable?
+
+Arithmetic Swap
+
+```cpp
+int main() {
+    int a = 2, b = 3;
+
+    a = a + b;
+    b = a - b;
+    a = a - b;
+}
+```
+
+Bitwise Swap
+
+```cpp
+int main() {
+    int a = 2, b = 3;
+    
+    a = a ^ b; // a = A ^ B
+    b = a ^ b; // b = (A ^ B) ^ B = A
+    a = a ^ b; // a = (A ^ B) ^ A = B
+}
+```
+
+### How is a binary search tree implemented?
+
+### How do you design a vending machine?
+
+### What is Depth First Search Algorithm for a binary tree?
+
+### Difference between a stable and unstable sorting algorithm?
+
+### What is the difference between Comparison and Non-Comparison Sorting Algorithms?
