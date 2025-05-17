@@ -186,3 +186,4 @@ add_executable(maximum_value_at_a_given_index_bounded_array 1802/maximum_value_a
 add_executable(middle_of_linked_list 876/middle_of_linked_list.cpp)
 add_executable(linked_list_cycle 141/linked_list_cycle.cpp)
 add_executable(first_unique_character_in_string 387/first_unique_character_in_string.cpp)
+add_executable(find_all_duplicates_in_array 442/find_all_duplicates_in_array.cpp)
