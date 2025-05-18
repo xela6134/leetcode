@@ -305,11 +305,9 @@ void merge(std::vector<int>& arr, int left, int mid, int right) {
     std::vector<int> temp;
     int i = left, j = mid + 1;
 
-    while (i <= mid && j <= right) {
-        if (arr[i] <= arr[j])
-            temp.push_back(arr[i++]);
-        else
-            temp.push_back(arr[j++]);
+    while (i <= mid and j <= right) {
+        if (arr[i] <= arr[j]) temp.push_back(arr[i++]);
+        else temp.push_back(arr[j++]);
     }
 
     while (i <= mid) temp.push_back(arr[i++]);
@@ -398,10 +396,119 @@ int main() {
 
 ### How is a binary search tree implemented?
 
+- Left child < Node < Right child
+- All nodes in the left subtree have values less than the node
+- All nodes in the right subtree have values greater than the node
+
+Inserting
+```cpp
+TreeNode* insert(TreeNode* root, int key) {
+    if (!root) return new TreeNode(key);
+
+    if (key < root->val) root->left = insert(root->left, key);
+    else if (key > root->val) root->right = insert(root->right, key);
+    
+    return root;
+}
+```
+
+### Extra: Deleting from a Binary Tree
+
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void deletion(TreeNode*& node, int key) {
+        if (not node) return;
+
+        if (node->val > key) {
+            // Look at left
+            deletion(node->left, key);
+        } else if (node->val < key) {
+            // Look at right
+            deletion(node->right, key);
+        } else {
+            // Node found
+            if (not node->left and not node->right) {
+                // Leaf node
+                node = nullptr;
+            } else if (not node->left) {
+                // No left node found
+                node = node->right;
+            } else if (not node->right) {
+                // No right node found
+                node = node->left;
+            } else {
+                // Replace with inorder successor (smallest in right subtree)
+                TreeNode* succ = node->right;
+                while (succ->left) {
+                    succ = succ->left;
+                }
+                node->val = succ->val;
+
+                deletion(node->right, succ->val);
+            }
+        }
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        deletion(root, key);
+        return root;
+    }
+};
+```
+
 ### How do you design a vending machine?
 
-### What is Depth First Search Algorithm for a binary tree?
+```cpp
+class Item {
+    std::string name;
+    double price;
+    int quantity;
+};
+
+class InventoryManager {
+    std::unordered_map<int, Item> items;
+public:
+    bool isAvailable(int code);
+    void dispenseItem(int code);
+    void restock(int code, int quantity);
+};
+
+class PaymentProcessor {
+    double insertedAmount;
+public:
+    void insertCoin(double value);
+    bool isPaymentSufficient(double price);
+    double calculateChange(double price);
+};
+
+class VendingMachine {
+    InventoryManager inventory;
+    PaymentProcessor payment;
+public:
+    void selectItem(int code);
+    void insertCoin(double value);
+    void cancel();
+};
+```
 
 ### Difference between a stable and unstable sorting algorithm?
 
+- Preserves the relative order of equal elements
+- May change the order of equal elements
+
 ### What is the difference between Comparison and Non-Comparison Sorting Algorithms?
+
+- Sorts by comparing elements using <, >, etc.
+- Sorts by transforming data (e.g., digits, characters)
