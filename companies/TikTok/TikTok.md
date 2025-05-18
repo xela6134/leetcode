@@ -218,6 +218,7 @@ public:
         std::vector<int> result;
 
         while (not nodes.empty() or curr) {
+            // get furthest left
             while (curr) {
                 nodes.push(curr);
                 curr = curr->left;
@@ -225,9 +226,9 @@ public:
 
             curr = nodes.top();
             nodes.pop();
-
             result.push_back(curr->val);
-            // curr = nodes.top();
+
+            // either returns nullptr or parent node
             curr = curr->right;
         }
 

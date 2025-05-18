@@ -190,3 +190,4 @@ add_executable(find_all_duplicates_in_array 442/find_all_duplicates_in_array.cpp
 add_executable(reverse_linked_list 206/reverse_linked_list.cpp)
 add_executable(linked_list_cycle_ii 142/linked_list_cycle_ii.cpp)
 add_executable(binary_tree_postorder_traversal 145/binary_tree_postorder_traversal.cpp)
+add_executable(add_binary 67/add_binary.cpp)
