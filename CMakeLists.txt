@@ -193,3 +193,4 @@ add_executable(binary_tree_postorder_traversal 145/binary_tree_postorder_travers
 add_executable(add_binary 67/add_binary.cpp)
 add_executable(length_of_last_word 58/length_of_last_word.cpp)
 add_executable(plus_one 66/plus_one.cpp)
+add_executable(sqrt_x 69/sqrt_x.cpp)
