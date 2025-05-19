@@ -1,6 +1,6 @@
 # Leetcode stuff (Actual Leetcode Qs)
 
-### find the first non repeated character of a given string
+### Find the first non repeated character of a given string
 
 ```cpp
 class Solution {
@@ -20,7 +20,7 @@ public:
 };
 ```
 
-### find duplicate numbers in an array (if it contains multiple duplicates)
+### Find duplicate numbers in an array (if it contains multiple duplicates)
 
 ```cpp
 class Solution {
@@ -55,7 +55,7 @@ public:
 };
 ```
 
-### remove duplicates from an array in place
+### Remove duplicates from an array in place
 
 ```cpp
 class Solution {
@@ -75,7 +75,7 @@ public:
 };
 ```
 
-### find the middle element of a singly linked list
+### Find the middle element of a singly linked list
 
 ```cpp
 class Solution {
@@ -95,7 +95,7 @@ public:
 };
 ```
 
-### check if a given linked list contains a cycle
+### Check if a given linked list contains a cycle
 
 ```cpp
 class Solution {
@@ -116,7 +116,7 @@ public:
 };
 ```
 
-### find the entry of the cycle
+### Find the entry of the cycle
 
 ![](./cycle.PNG)
 
@@ -157,7 +157,7 @@ public:
 };
 ```
 
-### reverse a singly linked list without recursion
+### Reverse a singly linked list without recursion
 
 ```cpp
 class Solution {
@@ -179,7 +179,7 @@ public:
 };
 ```
 
-### traverse a given binary tree in preorder without recursion
+### Traverse a given binary tree in preorder without recursion
 
 ```cpp
 class Solution {
@@ -207,7 +207,7 @@ public:
 };
 ```
 
-### traverse a given binary tree in inorder without recursion
+### Traverse a given binary tree in inorder without recursion
 
 ```cpp
 class Solution {
@@ -237,7 +237,7 @@ public:
 };
 ```
 
-### traverse a given binary tree in postorder without recursion
+### Traverse a given binary tree in postorder without recursion
 
 ```cpp
 std::vector<int> postorderTraversal(TreeNode* root) {
@@ -266,6 +266,171 @@ std::vector<int> postorderTraversal(TreeNode* root) {
     std::reverse(result.begin(), result.end());
     return result;
 }
+```
+
+### Spiral matrix
+
+```cpp
+class Solution {
+public:
+    std::vector<int> spiralOrder(std::vector<std::vector<int>>& matrix) {
+        std::vector<int> result;
+
+        int left = 0;
+        int right = matrix[0].size() - 1;
+        int top = 0;
+        int bottom = matrix.size() - 1;
+
+        int i = 0;
+        int j = 0;
+        int direction = 0;
+        // 0: right
+        // 1: down
+        // 2: left
+        // 3: top
+
+        while (left <= right and top <= bottom) {
+            result.push_back(matrix[i][j]);
+
+            if (direction == 0) {
+                if (j == right) {
+                    ++i;
+                    direction = 1;
+                    ++top;
+                } else {
+                    ++j;
+                }
+            } else if (direction == 1) {
+                if (i == bottom) {
+                    --j;
+                    direction = 2;
+                    --right;
+                } else {
+                    ++i;
+                }
+            } else if (direction == 2) {
+                if (j == left) {
+                    --i;
+                    direction = 3;
+                    --bottom;
+                } else {
+                    --j;
+                }
+            } else {
+                if (i == top) {
+                    ++j;
+                    direction = 0;
+                    ++left;
+                } else {
+                    --i;
+                }
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+### Search in rotated sorted array
+
+```cpp
+class Solution {
+public:
+    int search(std::vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) return mid;
+
+            // Left is sorted
+            if (nums[left] <= nums[mid]) {
+                // Search in left
+                if (nums[left] <= target and target < nums[mid]) {
+                    right = mid - 1;
+                }
+
+                // Search in right
+                else {
+                    left = mid + 1;
+                }
+            }
+
+            // Right is sorted
+            else {
+                // Search in right
+                if (nums[mid] < target and target <= nums[right]) {
+                    left = mid + 1;
+                }
+
+                // Search in left
+                else {
+                    right = mid - 1;
+                }
+            }
+        }
+
+        return -1;
+    }
+};
+```
+
+### LRU cache
+
+```cpp
+class LRUCache {
+public:
+    LRUCache(int capacity) {
+        size = capacity;
+    }
+    
+    int get(int key) {
+        if (cache.find(key) == cache.end()) return -1;
+
+        auto it = cache[key].second;
+        order.erase(it);
+        order.push_front(key);
+        cache[key].second = order.begin();
+
+        return cache[key].first;
+    }
+    
+    void put(int key, int value) {
+        if (cache.find(key) != cache.end()) {
+            // Pushed to start of list
+            auto it = cache[key].second;
+            order.erase(it);
+            order.push_front(key);
+            cache[key].second = order.begin();
+
+            // Updating the value
+            cache[key].first = value;
+
+            return;
+        }
+
+        // Cache is already full, need to remove the least recently used element
+        if (cache.size() == size) {
+            int least_recent = order.back();
+
+            cache.erase(least_recent);
+            order.pop_back();
+        }
+
+        // 1. Push current key to start of order
+        order.push_front(key);
+
+        // 2. Update the cache
+        cache[key] = {value, order.begin()};
+    }
+private:
+    int size;
+    std::list<int> order;
+    // key: { value, order's iterator }
+    std::unordered_map<int, std::pair<int, std::list<int>::iterator>> cache;
+};
 ```
 
 # Non-leetcode stuff
