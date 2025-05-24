@@ -22,25 +22,28 @@
 //     return prefix;
 // }
 
-auto longestCommonPrefix(std::vector<std::string>& strs) -> std::string {
+std::string longestCommonPrefix(std::vector<std::string>& strs) {
     if (strs.empty()) return "";
 
-    // Start with whole string, subtract characters from the back
     std::string prefix = strs[0];
-
+    std::string curr;
     for (int i = 1; i < strs.size(); ++i) {
-        while (strs[i].find(prefix) != 0) {
-            // Returning 0 means that it is found at the start
+        curr = strs[i];
 
-            prefix = prefix.substr(0, prefix.length() - 1);
-            if (prefix == "") return "";
+        int j = 0;
+        while (j < prefix.size() and j < curr.size()) {
+            if (prefix[j] == curr[j]) ++j;
+            else break;
         }
+
+        if (j == 0) return "";
+        prefix = prefix.substr(0, j);
     }
 
     return prefix;
 }
 
-auto main() -> int {
+int main() {
     std::vector<std::string> strs = {"flower", "flow", "flight"};
     std::cout << longestCommonPrefix(strs) << std::endl;
     
