@@ -198,3 +198,4 @@ add_executable(intersection_of_two_linked_lists 160/intersection_of_two_linked_l
 add_executable(decode_string 394/decode_string.cpp)
 add_executable(guess_number 374/guess_number.cpp)
 add_executable(palindrome_number 9/palindrome_number.cpp)
+add_executable(base_7 504/base_7.cpp)
