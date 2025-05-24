@@ -1,39 +1,39 @@
 #include <string>
 
-auto longestPalindrome(std::string s) -> std::string {
-    std::string result = "";
-    int max_len = 0;
+std::string longestPalindrome(std::string s) {
+    if (s.empty()) return "";
+
+    int max_len = 1;
+    std::string max = s.substr(0, 1);
     int left, right;
 
     for (int i = 0; i < s.size(); ++i) {
-        // 1. Odd
+        // Odd
         left = i;
         right = i;
         while (left >= 0 and right < s.size() and s[left] == s[right]) {
-            int str_len = right - left + 1;
-            if (str_len > max_len) {
-                result = s.substr(left, str_len);
-                max_len = str_len;
+            if (right - left + 1 > max_len) {
+                max_len = right - left + 1;
+                max = s.substr(left, max_len);
             }
             --left;
             ++right;
         }
 
-        // 2. Even
+        // Even
         left = i;
         right = i + 1;
         while (left >= 0 and right < s.size() and s[left] == s[right]) {
-            int str_len = right - left + 1;
-            if (str_len > max_len) {
-                result = s.substr(left, str_len);
-                max_len = str_len;
+            if (right - left + 1 > max_len) {
+                max_len = right - left + 1;
+                max = s.substr(left, max_len);
             }
             --left;
             ++right;
         }
     }
 
-    return result;
+    return max;
 }
 
 int main() {
