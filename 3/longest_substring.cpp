@@ -4,25 +4,24 @@
 #include <algorithm>
 
 int lengthOfLongestSubstring(std::string s) {
-    std::unordered_set<char> characters;
+    std::unordered_set<char> chars;
     int left = 0;
     int max_length = 0;
 
     for (int right = 0; right < s.size(); ++right) {
-        // Increment left until duplicate elements are gone
-        while (characters.contains(s[right])) {
-            characters.erase(s[left]);
+        while (chars.contains(s[right])) {
+            chars.erase(s[left]);
             ++left;
         }
 
-        characters.insert(s[right]);
+        chars.insert(s[right]);
         max_length = std::max(max_length, right - left + 1);
     }
 
     return max_length;
 }
 
-auto main() -> int {
+int main() {
     std::string str1 = "abcabcbb";  // abc: 3
     std::string str2 = "bbbbb";     // b  : 1
     std::string str3 = "pwwkew";    // wke: 3
