@@ -2,42 +2,39 @@
 #include <algorithm>
 #include <iostream>
 
-auto threeSum(std::vector<int>& nums) -> std::vector<std::vector<int>> {
+std::vector<std::vector<int>> threeSum(std::vector<int>& nums) {
     std::sort(nums.begin(), nums.end());
-    auto vectors = std::vector<std::vector<int>>{};
+    std::vector<std::vector<int>> result;
 
     for (int i = 0; i < nums.size() - 2; ++i) {
+        // Skip duplicates for starting number
         if (i > 0 and nums[i] == nums[i - 1]) continue;
         if (nums[i] > 0) break;
 
-        int target = nums[i];
         int left = i + 1;
         int right = nums.size() - 1;
 
         while (left < right) {
-            int sum = target + nums[left] + nums[right];
+            int sum = nums[i] + nums[left] + nums[right];
 
             if (sum < 0) {
-                left++;
+                ++left;
             } else if (sum > 0) {
-                right--;
+                --right;
             } else {
-                vectors.push_back({target, nums[left], nums[right]});
+                result.push_back({nums[i], nums[left], nums[right]});
 
-                while (left < right && nums[left] == nums[left + 1]) left++;
-                while (left < right && nums[right] == nums[right - 1]) right--;
+                // Skip duplicates for left and right
+                while (left < right and nums[left] == nums[left + 1]) ++left;
+                while (left < right and nums[right] == nums[right - 1]) --right;
 
-                left++;
-                right--;
+                ++left;
+                --right;
             }
         }
     }
 
-    std::sort(vectors.begin(), vectors.end());
-    auto last = std::unique(vectors.begin(), vectors.end());
-    vectors.erase(last, vectors.end());
-
-    return vectors;
+    return result;
 }
 
 auto main() -> int {
