@@ -4,13 +4,15 @@
 
 int maxSubArray(std::vector<int>& nums) {
     int max = INT_MIN;
-    int sum = 0;
+    int curr = 0;
 
     for (int num : nums) {
-        sum += num;
-        max = std::max(max, sum);
-
-        if (sum < 0) sum = 0;
+        curr += num;
+        max = std::max(max, curr);
+        
+        if (curr < 0) {
+            curr = 0;
+        }
     }
 
     return max;
