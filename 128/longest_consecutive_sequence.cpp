@@ -4,30 +4,29 @@
 #include <algorithm>
 
 int longestConsecutive(std::vector<int>& nums) {
-    std::unordered_set<int> numbers;
-
+    std::unordered_set<int> found;
     for (int num : nums) {
-        numbers.insert(num);
+        found.insert(num);
     }
+    
+    int longest = 0;
+    for (int num : found) {
+        // Start of list
+        int length = 0;
+        int curr = num;
+        if (found.find(curr - 1) == found.end()) {
+            // std::cout << "Dealing with " << curr << std::endl;
 
-    int max = 0;
-
-    for (int num : numbers) {
-        if (numbers.find(num - 1) == numbers.end()) {
-            // We have a place to start, keep looping
-            int size = 1;
-            int curr = num;
-
-            while (numbers.find(curr + 1) != numbers.end()) {
-                ++size;
+            while (found.find(curr) != found.end()) {
                 ++curr;
+                ++length;
             }
-
-            max = std::max(size, max);
         }
+
+        longest = std::max(longest, length);
     }
 
-    return max;
+    return longest;
 }
 
 auto main() -> int {
