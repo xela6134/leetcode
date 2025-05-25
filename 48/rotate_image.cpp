@@ -27,24 +27,19 @@
 // }
 
 void rotate(std::vector<std::vector<int>>& matrix) {
-    int size = matrix.size();
-    std::vector<std::vector<int>> new_matrix(size, std::vector<int>(size, 0));
+    int n = matrix.size();
 
-    // (0,0) (0,1) (0,2)
-    // (1,0) (1,1) (1,2)
-    // (2,0) (2,1) (2,2)
-
-    // (2,0) (1,0) (0,0)
-    // (2,1) (1,1) (0,1)
-    // (2,2) (1,2) (0,2)
-
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
-            new_matrix[j][size - 1 - i] = matrix[i][j];
+    // Step 1: Transpose
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            std::swap(matrix[i][j], matrix[j][i]);
         }
     }
 
-    matrix = new_matrix;
+    // Step 2: Reverse each row
+    for (int i = 0; i < n; ++i) {
+        std::reverse(matrix[i].begin(), matrix[i].end());
+    }
 }
 
 void print_matrix(std::vector<std::vector<int>>& matrix) {
