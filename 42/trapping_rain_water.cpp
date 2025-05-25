@@ -4,28 +4,38 @@
 #include <algorithm>
 
 int trap(std::vector<int> height) {
-    if (height.empty()) {
-        return 0;
+    // Make 2 vectors for maximum height of left side & right side
+    // Loop through the current heights, if current height is lower than the minimum of both
+    // This can be added to our current batch
+
+    int n = height.size();
+    if (n == 0) return 0;
+
+    std::vector<int> max_left(n, 0);
+    std::vector<int> max_right(n, 0);
+
+    // Initialise left
+    max_left[0] = height[0];
+    for (int i = 1; i < n; ++i) {
+        max_left[i] = std::max(max_left[i - 1], height[i]);
     }
 
-    int l = 0;
-    int r = height.size() - 1;
-    int leftMax = height[l];
-    int rightMax = height[r];
-    int res = 0;
+    // Initialise right
+    max_right[n - 1] = height[n - 1];
+    for (int i = n - 2; i >= 0; --i) {
+        max_right[i] = std::max(max_right[i + 1], height[i]);
+    }
 
-    while (l < r) {
-        if (leftMax < rightMax) {
-            l++;
-            leftMax = std::max(leftMax, height[l]);
-            res += leftMax - height[l];
-        } else {
-            r--;
-            rightMax = std::max(rightMax, height[r]);
-            res += rightMax - height[r];
+    // Calculating values
+    int total = 0;
+    for (int i = 0; i < n; ++i) {
+        int curr_min = std::min(max_left[i], max_right[i]);
+        if (height[i] < curr_min) {
+            total += (curr_min - height[i]);
         }
     }
-    return res;
+
+    return total;
 }
 
 int trap1(std::vector<int> height) {
