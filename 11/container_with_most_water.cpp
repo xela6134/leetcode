@@ -3,18 +3,13 @@
 #include <algorithm>
 
 int maxArea(std::vector<int>& height) {
-    // Naive solution: O(N^2)
-
     int left = 0;
     int right = height.size() - 1;
-
     int max_water = 0;
 
     while (left < right) {
         int curr_water = std::min(height[left], height[right]) * (right - left);
-        max_water = std::max(curr_water, max_water);
-
-        // std::cout << left << " " << right << std::endl;
+        max_water = std::max(max_water, curr_water);
 
         if (height[left] < height[right]) {
             ++left;
