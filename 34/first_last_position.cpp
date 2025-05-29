@@ -2,11 +2,11 @@
 #include <algorithm>
 #include <iostream>
 
-auto searchRange(std::vector<int>& nums, int target) -> std::vector<int> {
+std::vector<int> searchRange(std::vector<int>& nums, int target) {
     if (nums.empty()) return {-1, -1};
 
     int left = 0;
-    int right = static_cast<int>(nums.size()) - 1;
+    int right = nums.size() - 1;
     int mid;
 
     while (left <= right) {
@@ -21,11 +21,11 @@ auto searchRange(std::vector<int>& nums, int target) -> std::vector<int> {
     
     int firstPos = left;
 
-    if (firstPos >= nums.size() || nums[firstPos] != target) {
+    if (firstPos >= nums.size() or nums[firstPos] != target) {
         return {-1, -1};
     }
 
-    right = static_cast<int>(nums.size()) - 1;
+    right = nums.size() - 1;
     while (left <= right) {
         mid = (left + right) / 2;
 
