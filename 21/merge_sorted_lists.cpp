@@ -9,31 +9,28 @@ struct ListNode {
 };
 
 ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-    ListNode* dummy = new ListNode();
-    ListNode* tail = dummy;
+    ListNode* head = new ListNode();
+    ListNode* curr = head;
 
-    while (list1 != nullptr && list2 != nullptr) {
-        if (list1->val <= list2->val) {
-            tail->next = list1;
+    while (list1 and list2) {
+        if (list1->val < list2->val) {
+            curr->next = list1;
+            curr = curr->next;
             list1 = list1->next;
         } else {
-            tail->next = list2;
+            curr->next = list2;
+            curr = curr->next;
             list2 = list2->next;
         }
-        tail = tail->next;
     }
 
-    if (list1 != nullptr) {
-        tail->next = list1;
-    } else if (list2 != nullptr) {
-        tail->next = list2;
+    if (list1) {
+        curr->next = list1;
+    } else {
+        curr->next = list2;
     }
 
-    ListNode* list = dummy;
-    list = list->next;
-    delete dummy;
-
-    return list;
+    return head->next;
 }
 
 auto main() -> int {
