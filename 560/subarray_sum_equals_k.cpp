@@ -9,13 +9,18 @@ int subarraySum(std::vector<int>& nums, int k) {
 
     int count = 0;
     int curr_sum = 0;
+
     for (int num : nums) {
         curr_sum += num;
-        if (prefix_sums.count(curr_sum - k)) {
+        if (prefix_sums.find(curr_sum - k) != prefix_sums.end()) {
             count += prefix_sums[curr_sum - k];
         }
-        prefix_sums[curr_sum]++;
+        ++prefix_sums[curr_sum];
     }
+
+    // for (const auto& [key, val] : prefix_sums) {
+    //     std::cout << key << ": " << val << std::endl;
+    // }
 
     return count;
 }
