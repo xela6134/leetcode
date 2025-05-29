@@ -4,28 +4,29 @@
 #include <iostream>
 
 int lengthOfLIS(std::vector<int>& nums) {
-    // 10 9 2 5 3 7 101 18
-    // 1  1 1 2 2 3 4   4
-    int n = nums.size();
-    std::vector<int> dp(n);
+    std::vector<int> tails;
 
-    int max_length = 1;
-    for (int i = 0; i < n; ++i) {
-        if (i == 0) {
-            dp[i] = 1;
-            continue;
-        }
+    // 10 -> [10]
+    // 9 -> [9]
+    // 2 -> [2]
+    // 5 -> [2, 5]
+    // 3 -> [2, 3]
+    // 7 -> [2, 3, 7]
+    // 101 -> [2, 3, 7, 101]
+    // 18 -> [2, 3, 7, 18]
 
-        dp[i] = 1;
-        for (int j = 0; j < i; ++j) {
-            if (nums[j] < nums[i]) {
-                dp[i] = std::max(dp[i], dp[j] + 1);
-            }
+    for (int num : nums) {
+        // Binary search for the first element >= num
+        auto it = std::lower_bound(tails.begin(), tails.end(), num);
+
+        if (it == tails.end()) {
+            tails.push_back(num); // Extend the sequence
+        } else {
+            *it = num; // Replace to maintain the smallest tail
         }
-        max_length = std::max(max_length, dp[i]);
     }
 
-    return max_length;
+    return tails.size();
 }
 
 auto main() -> int {

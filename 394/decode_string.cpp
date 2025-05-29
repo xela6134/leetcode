@@ -25,6 +25,7 @@ std::string decodeString(std::string s) {
         else if (c == ']') {
             int repeat = count_stack.top(); 
             count_stack.pop();
+            
             std::string prev = str_stack.top(); 
             str_stack.pop();
             
