@@ -207,3 +207,4 @@ add_executable(find_index_of_first_occurrence_in_string 28/find_index_of_first_o
 add_executable(remove_nth_node 19/remove_nth_node.cpp)
 add_executable(excel_sheet_column_number 171/excel_sheet_column_number.cpp)
 add_executable(repeated_substring_pattern 459/repeated_substring_pattern.cpp)
+add_executable(reverse_string 344/reverse_string.cpp)
