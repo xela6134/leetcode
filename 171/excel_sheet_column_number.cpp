@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 int titleToNumber(std::string columnTitle) {
     // ZY = (Z - A) * 26 + (Y - A) * 1
