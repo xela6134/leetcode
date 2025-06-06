@@ -1,7 +1,7 @@
 # Leetcode Solutions
 
 ### Description
-- Almost entirely done in C++
+- Almost entirely done in C++ (some Java for Canva)
 - Doing whatever questions I feel like from different sources
 - (If you **REALLY** want to run this) you need to install CMake to run these solutions. Install `cmake` according to your current environment.
 
